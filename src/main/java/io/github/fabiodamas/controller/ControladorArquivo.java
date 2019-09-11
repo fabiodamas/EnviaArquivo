@@ -17,7 +17,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import dev.fabio.FileUploadController;
 import io.github.fabiodamas.Utils.Armazenador;
 
 @Controller
@@ -29,7 +28,6 @@ public class ControladorArquivo {
 	
 	@GetMapping("/")
 	public String index(Model model) {
-
 	
 		
 	     model.addAttribute("files", armazenador.loadAll().map(
@@ -37,8 +35,20 @@ public class ControladorArquivo {
 	                        "serveFile", path.getFileName().toString()).build().toString())
 	                .collect(Collectors.toList()));
 
+	     // System.out.println("fabio: " + armazenador.loadAll().));
 		return "index";
 	}
+	
+	
+	
+    @GetMapping("arquivos/{filename:.+}")
+    @ResponseBody
+    public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
+
+        Resource file = armazenador.loadAsResource(filename);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
+                "attachment; filename=\"" + file.getFilename() + "\"").body(file);
+    }	
 
 	@PostMapping("/")
 	public String handleFileUpload(@RequestParam("file") MultipartFile file, RedirectAttributes redireAttributes) {
