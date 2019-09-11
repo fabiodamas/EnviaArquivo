@@ -46,14 +46,15 @@ public class Armazenador {
 	public Stream<Path> loadAll() {
         try {
     	    Path rootLocation;
-            rootLocation = Paths.get("src/main/resources/static/arquivos");
+            // rootLocation = Paths.get("src/main/resources/static/arquivos");
+    	    rootLocation = Paths.get("arquivos");
             
             return Files.walk(rootLocation, 1)
                 .filter(path -> !path.equals(rootLocation))
                 .map(rootLocation::relativize);
         }
         catch (IOException e) {
-        	 throw new Error("deu pau");
+        	 throw new Error(e.getMessage());
         }
 
     }
@@ -66,7 +67,7 @@ public class Armazenador {
 		try {
 			InputStream inputStream = file.getInputStream();
 			new File("arquivos").mkdir();			
-			rootCaminho = Paths.get("src/main/resources/static/arquivos");
+			rootCaminho = Paths.get("arquivos");
 			
 	        Files.copy(inputStream, rootCaminho.resolve(nomeArquivo),
 	                StandardCopyOption.REPLACE_EXISTING);
