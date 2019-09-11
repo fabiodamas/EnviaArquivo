@@ -5,28 +5,25 @@
   <meta charsetfd="ISO-8859-1" />
   <title>Insert title here</title>
 
-  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
   <link href="css/floating-labels.css" rel="stylesheet">
+
+
+  <link rel="stylesheet" href="/webjars/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="/webjars/jquery/3.4.1/jquery.js"></script>
   <script src="/webjars/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
-   
+
 </head>
 
 <body>
 
 
 
-
   <form class="form-signin" method="POST" enctype="multipart/form-data">
     
-    <div th:if="${message}" class="alert alert-warning alert-dismissible fade show" role="alert">
-
+    <div th:if="${message}" class="alert alert-success alert-dismissible fade show" role="alert">
+     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <p th:text="${message}" />
-
-
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
     </div>
 
     <div class="text-center">
